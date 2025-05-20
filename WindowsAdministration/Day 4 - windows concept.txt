@@ -1,0 +1,237 @@
+Preparation steps for upgrades and migration:
+---------------------------------------------
+1. Assessing and Planning
+	- check the hardware inventory 
+	- identify incompatible hardware, drivers or applications
+	- decide the type of:
+		- in-place upgrade (same hardware)
+		- migrate (new hardware)
+
+2. understand the upgrade/migration path:
+	- in-place
+	- migration
+	- cluster OS rolling upgrade
+	- cross-forest/domain migration
+	
+3. Testing
+	- set up a small/testing environment
+	- validate applications, services or custom scripts.
+
+4. backup & recovery planning
+	- take full system backup
+	- backup documents, setting
+	- validate restore procedure before upgrading
+	
+5. prepare the target environment
+	- install & patch the targeted windows server
+	- join the system to domain, configure roles/services
+	- ensure the hardware, drivers & firewares are updated
+	- install the migration tools (windows server migration tool)
+
+6. perform upgrade/migration
+	- follow the check-list
+	- use migration tools:
+		- windows server migration tool
+		- Active Directory migration tool (ADMT)
+		- storage migration services
+		- hyper-v live migration
+		
+7. post migration tasks
+	- validate all services like DHCP, DNS are functioning
+	- update the group policies, scripts, monitoring tools.
+	- remove old server roles & decommission it.
+	- update the stakeholders.
+	
+Windows Server activation model:
+--------------------------------
+	various server activation models are:
+		- retail
+		- volume licensing
+		- cloud environment
+	--------------------------------------
+
+Retail activation (MAK - multiple activation key)
+	- used for indivudial purchase
+	- each key can be used limited number of times.
+	- useful in small/medium businesses
+	
+volume licensing
+	- for large organization
+	- offers 2 methods:
+		- MAK (multiple activation key)
+			- one-time activation
+		- KMS (Key Management System)
+			- requires minimum of 25 clients
+			- clients must re-active every 180 days.
+
+Active Directory-Based Activation
+	- integrated with AD
+	- no need to configure machine maually
+	- activation is valid for 180days, it auto-renews after that.
+
+Automatic Virtual Machine Activation (AVMA)
+	- used in Hyper-V environment
+	- it allows VM to active automatically, if hyper-v is running on datacenter edition
+	- no internet, no KMS or MAK is required
+	
+Understanding iSNS, DCB & MPIO:
+-------------------------------
+iSCSI:
+	- Internet Small Computer System Interface
+	- iSCSI is a networking protocol that allows data transfer over IP (TCP/IP) networks.
+	- it enables SCSI commands to be sent over the ethernet channel.
+	- we need 
+		- a server (initiatior)
+		- storage device (target)
+	- cost-effective setup over fiber channel
+
+FCIP
+	- Fibre Channel over IP
+	- FCIP is a networking protocol that uses fibre channel over IP networking
+	- aka IP storage tunnelling
+	- it is helpful in geo-graphical sharing
+	- used in datacenters
+
+1. iSNS
+	- Internet Storage Name Service
+	- to help discover, manage & configure iSCSI and FCIP devices in large environment
+	- it provides nameing & discovery for iSCSI target and initiatior.
+	it provides centralized iSCSI storage
+	
+2. DCB
+	- Data Center Bridging
+	- to make ethernet lossless and suitable for storage traffic in data centers.
+	- it ensures high reliable & zero data loss over ethernet
+
+3. MPIO
+	- Multi-path Input Output
+	- to provide redundancy, high availablity & performance for storage path
+	- used in SAN storages
+	- ensures the fault tolerence
+
+Real-World:
+##############
+	iSNS - a phonebook for storage, help devices find each other.
+	DCB  - like a traffic rule, gives priority to importance vehicles
+	MPIO - having multiple paths to a destination
+	
+Data Deduplication in Windows Server 2016:
+------------------------------------------
+	- aka dedup
+	- dedup is a built-in windows feature introduced in server 2012.
+	- the feature help in optimizing storage by identifying and removing the duplicate data from the storage
+	- best suited for:
+		- file server (home directories, shared folders
+		- backups
+		- VHD/VHDX files
+	- not recommended for:
+		- database
+		- exchange server
+		- hyper-vms
+	- types of dedup:
+		1. file-level deduplication
+			- it maintains the single copy of every version
+			- consumes more space.
+		2. block-level deduplication
+			- it breaks down the whole data into vaiours blocks & 
+			- then stores only unique data blocks
+			- much more efficient 
+			- consumes less space.
+			
+steps to configure dedup on windows server:
+-------------------------------------------
+	1. install the data deduplication feature
+	2. verify
+		> get-windowsfeature -name fs-data-deduplication
+	3. configure it
+	4. to check the status of dedup
+	
+Ques - install and perform data deduplication	OR
+Ques - add spanned volume and enable data-deduplication feature on it.
+	- adding disk in windows server
+	- install data dedup feature
+	- config dedup
+	- verify
+	
+Storage Spaces:
+----------------
+	- allow you to add multiple disks together and make one logical disk from it.
+	- aka LVM in linux
+	- it is built-in feature of windows 10/11
+	- steps to create storage spaces:
+		- add minimum 2 disks (reuse, if you have attached any earlier)
+		- ensure those are "UNALLOCATED DISKS".
+		- go to server dashboard page, 
+			-> file & storage services
+			-> volumes
+			-> select storage pool --> rescan storage
+			-> select storage pool --> New storage Pool
+				-> Name: 
+				-> select server
+				-> select both disks
+				-> review & create
+			-> create virtual disk from this
+
+FIle sharing between systems:
+------------------------------
+	1. NFS Sharing
+		- to share the data between similar operating system	
+			- Windows to Windows
+			- Linux to Linux       
+	   
+	2. Samba share
+		- its a cross-platform sharing method
+			- Windows to Linux & linux to windows
+			- Windows to Windows
+			- Linux to Linux 
+			
+Ques - create a NFS shared folder and share it with the client and verify if it is accessible.
+
+Levels of availablity in windows server:
+-----------------------------------------
+- it defines the resilency of system and its services
+- server and its services must be available every time.
+- different levels:
+
+	1. High Availability (HA)
+		- service must be available everytime.
+		- here, we minimize the downtime of server(s)
+		- achieved by applying these concepts:
+			- clustering 
+			- redundancy
+			- automatic failover
+		- technologies for HA:
+			- failover clustering
+			- Network Load Balancing (NLB)
+			- Hyper-V replica
+			
+	2. Fault Tolerance (FT)
+		- no interruptions during the hardware failure.
+		- this requires hardware-level redundancy
+			- redundant RAID
+			- redundant power supply
+			- redundant networks
+		- downtime is unacceptable.
+		
+	3. Disaster Recovery (DR)
+		- restoring the service after major failure
+		- focuses on backups & replication.
+	
+	4. Continous Availability
+		- no downtime AT ALL.
+		- like:
+			- Storage spaces
+			- SMB multichannel
+			- Cluster-Aware updating
+			
+	
+	
+	Task 
+	#######
+		- prepare the lab displayed in morning.
+	
+	
+	
+	
+	
+	

@@ -1,0 +1,119 @@
+login to RPS labs
+open web browser (inside the lab)
+open the link: gitlab.rpsconsulting.in
+	username: b80user01
+	password: pwd
+go to the folder where all data is stored (c:\Lab-details)
+
+
+Group Policy:
+===============
+	- aka Group Policy Object (GPO)
+	- Group Policy is a policy that provides centralized mgmt and configuration of operating systems, applications, users, settings.
+	- Group Policy uses GPO to define the configuration.
+	- GPOs are linked to 
+		- sites
+		- domain 
+		- organizational units
+	- it affects users and computers
+	
+Advantages:
+	- centralized management
+		- admin can configure settings for whole domain
+	- improve security
+		- enforce password policy, restrict software installation, upgradation or removal.
+	- automation
+		- GPO can be set automatically
+	- consistency
+		- GPO ensure ALL systems are getting same policies only.
+		
+DisAdvantages:
+	- complex
+	- performance impact
+
+how a GPO is applied, after creation:
+	- cmd --> gpupdate /force
+	- sign out & sign in again.
+	- reboot/restart
+	- wait for 90-120 minutes
+	
+types of group policy settings:
+	1. Computer configuration
+		- applies to computers, regarless of who logs in.
+	2. User configuration
+		- applies to user, regarless of which device they use.
+		
+each type (computers config or user config)
+	- Software settings
+	- windows settings
+	- administrative templates
+	
+Group policy order:
+	1. local group policy
+	2. site GPO
+	3. domain GPO
+	4. OU GPO
+	
+GPO
+	1. to set the wallpaper for the all machines
+	2. disable the control panel on all machines
+	
+What can I do with group policies?
+	- set password policy
+	- account lockout
+	- disable task manager
+	- disable control pannel & settings
+	- disable access to command prompt or powershell
+	- install softwares (.exe or .msi)
+	- change network settings
+	- set login/logoff scripts
+
+AD DS replication:
+-------------------
+	- AD replication is a process by which changes made on one domain controller (DC) are synchronized across multiple DCs with the domain or forest.
+	- this ensures the consistency and high availability of 
+		- users
+		- group
+		- computers
+		- policies
+		
+Key-concepts:
+---------------
+- Multi-master replication 
+	- all writable DCs can accept changes and replicate them other (except RODC)
+- Replication topology
+	- defines how DCs connect and replicate with each other.
+- sites & site links
+	- site - physical geo-graphical location (Bhopal, Bangalore, Goa)
+	- site-links - connection link between 2 sites
+
+Types of AD replication:
+	1. Intra-site replication
+		- occurs between DCs in the same site.
+	2. Inter-site replication
+		- occurs between DCs in the different sites.
+		
+BH - Bridge Head accepts the changes 
+KCC 
+	- Knowledge Consistency Checker
+	- responsible for checking and synchronizing changes between the DCs within same site. (intra-site replicataion), this takes 30seconds.
+	- KCCs work in a single direction.
+	- Every site has a Bridge Head (BH) that connects with another site for synchronization (inter-site replicataion)
+	- BH syncs with each other in every 180 minutes (3Hrs)
+
+Pre-requisites:
+	- at least 2 domain controllers are needed
+	- both should be in domain/forest
+	- proper DNS must be configured.
+	
+
+
+Task
+------
+	- install a new windows server 2016 datacenter eval (Desktop Exp)
+	- post-installation steps
+		IP = 192.168.10.13/24
+	- domain join this new system
+	- login as domain administrator on this server
+	- install ADDS role
+	- 

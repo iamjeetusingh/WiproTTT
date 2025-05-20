@@ -1,0 +1,171 @@
+Disks:
+==========
+	- Static/Standard disk
+	- what is MBR?
+	- what is GPT?
+	- dynamic disk - allows you to extend your current HDD.
+		- stripped volume
+			- minimum of 2 HDDs are required.
+			- both disks must be identical
+			- data will be saved into 2 seperate disks 
+		- mirror volume
+			- minimum of 2 HDDs are required.
+			- both disks must be identical
+			- whole data will be stored in 1st disk & replica of this data will get stored in another disk.
+			- if one disk crashes, data can be found in another disk.
+			- only 50% of storage is actually in use.
+		- spanned volume
+			- you can use multiple disks of either identical or non-identical sizes.
+			- multiple disks are used together to form a single disk.
+				- windows OS --> Storage Spaces
+				- Linux OS   --> LVM (Logical Volume Manager)
+	- What is RAID 
+		- Redundant Array of Independent Disks
+	- RAID types
+		- RAID 0				- Stripping
+		- RAID 1				- Mirroring
+		- RAID 10				- Mirroring with Stripping
+		- RAID 5 (optional)		- single parity
+		- RAID 6 (optional)		- dual parity
+
+to configure RAID0:
+------------------
+	- attach 2 (same size disks) to your system.
+	- initialize the disk using disk management utility (diskmgmt.msc)
+	- convert the disks into dynamic disks
+	- create RAID0 (Stripe volume)
+	- go to "this PC" & verify.
+	
+Windows Operating Systems:
+----------------------------
+	1. Server Operating Systems
+		- is responsible for serving the requests asked by the clients
+		- example of server OS:
+			- Windows NT
+			- Windows Server 2008
+			- Windows Server 2008R2		R = release
+			- Windows Server 2012
+			- Windows Server 2012R2
+			- Windows Server 2016		//most org ar using this or above versions.
+			- Windows Server 2019
+			- Windows Server 2022
+			- Windows Server 2025
+	2. Client Operating Systems
+		- asks/requests for some service.
+		- example of client OS:
+			- Windows XP
+			- Windows 7
+			- Windows Vista
+			- Windows 8.0
+			- Windows 8.1
+			- Windows 10
+			- Windows 11
+			
+Domain and Workgroups:
+-----------------------
+	Workgroups 
+		- a system (s) will be part of the network, but they don't need a centralized server for the management.
+		- no single computer has control over other machines.
+		- authentication is local
+		- no active directory concept
+		- small & simple configuration can be done easily.
+		- we can add a server or client in workgroups.
+		
+	Domain
+		- is a type of network setup where you can manage
+			- computers
+			- users
+			- other resource 
+		  in a centralized manner.
+		- for this, any organization would use "Active Directory".
+		- to have the Active Directory, they have to install a role ADDS (Active Directory Domain Service).
+		- domain controller
+			- a server, that controls the entire domain.
+		- domain member
+			- a server or a client
+			- its the part of domain env.
+			
+######################
+	Windows Servers:
+######################
+
+Hardware requirement to install Windows Server:	
+	- Processor			- 1.4GHz (x64 bit)
+	- RAM				- 512 MB (CLI), 2GB (GUI)
+	- HDD				- 32 GB
+	- NIC card			- 1 (1Gbps speed)
+	- type of m/c		- physical or virtual machine
+	- hypervisior		- VMWare workstation, Hyper-V, Oracle VB
+	
+Windows Server 2016 Editions
+	1. Windows Server 2016 Standard Edition
+		- designed for small or medium scale organizations
+		- it supports 2 virtual machines or 1 Hyper-V host license.
+		- it supports features like:
+			- Active Directory
+			- DNS
+			- DHCP
+			- File & Storage Service
+	
+	2. Windows Server 2016 Datacenter Edition
+		- designed for large organizations & cloud
+		- it supports unlimited virtual machines
+		- it supports all the basic features of standard edition +:
+			- Storage space
+			- Shielded virtual machines
+			- SDN (Software-Defined Networking)
+	
+	3. Windows Server 2016 Essentials Edition
+		- designed for small company with 25 users & 50 devices.
+		- Hyper-V is not supported
+		- cost-effective solutions
+		
+Windows Server Installation:
+	1. GUI - Desktop Experience
+	2. CLI - Server Core
+	
+	
+NOTE: SELECT windows Server 2016 Datacenter eval (Desktop Experience)
+
+Windows Server 
+	- User 		-> Administrator
+	- password 	-> pass@word1
+	
+after installation is completed, install VMWARE TOOLS.
+& after installation, restart your computer.
+
+After Server Manager Dashboard is opened (after installation), we need to perform the POST INSTALLATION CONFIGURATION.
+
+---------------------------------------------------
+steps to perform POST INSTALLATION CONFIGURATION:
+---------------------------------------------------
+	- change the IP address				--> ncpa.cpl
+	- change the firewall settings		--> firewall.cpl
+	- change the date & time zone
+	- turn off IE enhanced configuration
+	- Enable remote desktop
+	- change the computer name
+	- restart your server machine
+---------------------------------------------------
+
+Task
+#####
+	- install another windows server as server core (CLI) OS using the following:
+		- Name of VM: WinCore
+		- RAM: 1GB
+		- HDD: 20GB
+		- NIC: <lan segment> --> WindowsLab
+		- ISO: windows server ....2016....iso
+		- Installation: Windows Server 2016 datacenter evaluation
+
+To perform post installation configuration on "server core"
+	> sconfig.cmd
+	
+Task:
+-------
+	1. install windows server 2016 in GUI
+	2. install windows server 2016 in CLI
+	3. perform post installation configuration on both GUI & CLI
+	4. ping both machines together using IP address
+	5. add two 5GB disks on DC (GUI) machine
+	6. create spanned disk from both 5GB disks on DC.

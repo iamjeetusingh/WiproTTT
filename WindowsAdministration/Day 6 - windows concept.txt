@@ -1,0 +1,143 @@
+DC		- WinDC		- 192.168.10.10/24 - iSCSI storage
+Client1 - Node01	- 192.168.10.11/24 - failover cluster feature
+Client2 - Node02	- 192.168.10.12/24 - failover cluster feature 
+
+Installing failover cluster on Node01 & Node02
+------------------------------------------------
+Node01:
+
+
+
+
+to add a new node (Node03) to the cluster:
+	- install a new OS
+	- perform post installation configuration
+	- domain join it.
+	- install iSCSI initiatiator
+	- enable iSCSI disk
+	- install failover cluster feature
+	- add the node03 in the cluster console
+	
+Network Load Balancer (NLB):
+------------------------------
+	- its the built-in feature of windows server OS
+	- NLB distributes the imcoming traffic across multiple servers
+	- NLB ensures HA & scalability
+	- NLB works on Layer 4 of OSI Model
+	- common usage:
+		- IIS web servers
+		- VPN server
+		- terminal server
+	- unlike failover cluster, NLB DOES NOT require shared storage
+	
+Steps to configure NLB:
+	- on Node01:
+		- install IIS web server
+		- edit the web page on this server
+		- verify
+		
+	- on Node02:
+		- install IIS web server
+		- edit the web page on this server
+		- verify
+	
+Ques - Configure an NLB and create a highly-available IIS website.
+
+WSUS:
+-----
+- Windows Server Update Service
+- WSUS allow admins to:
+	- download and store Microsoft updates locally.
+	- appove or deny updates from deployment
+	- target specific group of computers for the update
+	- it saves the bandwidth
+- Pre-requisties:
+	- Windows server 2016 or above
+	- at least 20GB free space
+	- a working Active Directory
+	- internet access
+	
+Microsoft Deployment Toolkit (MDT)
+--------------------------------------
+	- is a free tool from Microsoft
+	- it automates the deployment of windows operating system within your organization.
+	- create and deploy your own windows custom images
+	- key feature:
+		- automates deployment
+			- operating system
+			- drivers
+			- applications
+			- patches
+			- updates
+		- Supports:
+			- images creation and deployment
+			- user state migration (USMT)
+			- disk partitioning and formatting
+			- generate bootable media (USB, ISO, PXE boot)
+			
+Monitoring tools in Windows server 2016:
+----------------------------------------
+1. Performance Monitor (PerfMon)
+	- its a built-in tool in win server
+	- can track CPU, Memory, disk, network or custom entries
+
+2. Resource Monitor
+	- provides real-time monitoring  of CPU, memory, disk and other resources
+	- it gives detailed information than CPU
+
+3. Task Manager
+	- built-in tool
+	- information on cpu, memory, disk, network 
+	- immedi. troubleshooting
+	
+4. Event viewer
+	- used for viewing / listing logs
+	- logs:
+		- system 
+		- security
+		- application logs
+
+5. Server Manager
+	- its a dashboard to manage, install or uninstall roles and features
+	- shows alerts for roles and features for 
+		- AD
+		- DHCP
+		- DNS
+		- NLB
+		- FC
+
+6. Windows Admin Center (WAC)
+	- we need to install this manually
+	- view performance in charts, 
+	- service views
+	- event logs
+	- update management
+	
+7. SCOM
+	- System Center Operations Manager
+	- Enterprise grade solution for monitoring
+	
+8. Monitoring scripts (PowerShell)
+	- we can create manual scripts for 
+		- cpu, memory, disk, network, roles, features...
+		
+PowerShell
+	- a cmd line tool
+	- used for automation
+	- it can automate EVERYTHING
+		- it can create "n" number of users in active directory
+		- it can create virtual machines in Azure cloud
+		- it can automate the manual job(s)
+	- PowerShell can be integrate with 
+		- window server operating system
+		- window client operating system
+		- Linux operating system
+		- MacOS 
+	- It's a configuration management (CM) tool
+		- it can perform management related jobs
+			- turn of/on firewall
+			- turn of/on any service
+			- creating a user in multiple systems
+			- create a file in a folder
+			- edit the data in a file in a specfic folder
+	

@@ -1,0 +1,176 @@
+Active Directory Certificate Service (ADCS):
+--------------------------------------------
+	- its a role that helps in	
+		- creating a certificate
+		- managing certificates
+		- distributing certificates
+		- revoking certificates
+	- benefits
+		- centralized certificate mgmt
+		- supports SSL/TLS, IPSec, EFS, VPN, 802.1X
+		- enhanced authentication and data security
+		- integrated with AD for automated enrollment
+		
+1. shared-key method
+	- single key is responsible for encrypting and decrypting the data.
+	- faster in nature
+	- unsafe
+	
+2. PKI infrastructure
+	- 2 keys to encrypt and decrypt the data.
+		- Public key  - will be shared with others
+		- Private key - can not be shared with anyone
+
+
+encryption => "hi" + algo = 1h1i2e@$aq (cipher text)
+
+to create Self-Sign Certificate:
+	- makecert.exe (depricated)
+	- OpenSSL (in linux)
+	- IIS web server
+	- New-SelfSignedCertificate	(powershell)
+	
+Core features of ADCS:
+	- enables certificate authority (CA) to issue and manage digital certificate.
+	- supports automated certificate enrollment and renewal.
+	- integrated with AD 
+	- enables certificate-based authentication
+	- allows revocation of certificate
+	
+core components of ADCS:
+------------------------
+1. Certificate Authority (CAs)
+	- is the server role that issues and revokes certificates
+	- types:
+		- Enterprise CA
+		- Standalone CA
+		
+2. CA web enrollment
+	- it provides a web interface for users to request certificate
+	
+3. Online responder
+	- implements OCSP (Online Certificate Status Protocol) for real-time certificate status checking.
+	
+4. Certificate Enrollment Web Service
+	- allows certificate enrollment across firewalls and to non-domain joined machines using HTTPS.
+	
+5. Network Device Enrollment Service (NDES)
+	- for routers, switches, mobile devices
+
+6. Certificate Templates
+	- defines the format, purpose and policies for certificate
+	
+deployment models of ADCS:
+---------------------------
+	1. Single-tier PKI
+		- one CA (Root CA)
+		- easy to deploy
+		- not recommended for production
+	
+	2. Two-tier PKI 
+		- Root CA 
+			- its kept Offline
+			- highly secure, rarely used
+		- Sub-ordinate CA
+			- it is kept online
+			- it issues & manages certificate
+			
+	3. Three-tier PKI
+		- offline root CA --> policy CAs --> Issuing CAs
+		- used in very large production environments
+		
+use case:
+	- issuing the SSL/TLS certificate for websites
+	- smartcard logon
+	- MFA (multi-factor authentication)
+	- WiFi or VPN authentication
+	- email encryption 
+	- code signing for developers
+	- EFS (encrypting file system) support
+
+pre-requisites:
+	- a domain joined windows server
+	- you must login as domain administrator (training\administrator)
+	- ensure ADDS role is already installed
+	
+- types of CAs:
+		- Enterprise CA
+			- used within a domain controller environment
+			
+		- Standalone CA
+			- used within workgroup environment
+			
+Active Directory Federation Service (ADFS):
+--------------------------------------------
+	- ADFS is a SSO solution
+		SSO - Single Sign-On
+	- federation identity solution
+	- it can be on:
+		- organization (on-prem)
+		- on-cloud
+	- allows users to access applications without re-authenticating 
+	- is built on standards like:
+		- SAML
+		- OAuth
+		- OpenID Connect
+		- WS-Federation
+
+ADFS components:
+	- Federation server
+	- Federation server proxy
+	- claims - provides information about users
+	- claims rules - defines how claims are sent and consumed by FS server
+	- claims providers 
+	- attribute store
+	- relying parties - application that trusts FS
+	- relying parties trust - are configured on claims on FS
+	- certificates
+	- endpoints
+	
+ADFS pre-requisites:
+	- TCP/IP network connectivity
+	- AD DS
+	- Attribute store 
+	- DNS
+	- Any windows server OS
+	- certificate
+	
+
+Active Directory Rights Management System (AD-RMS)
+------------------------------------------------------
+	- ADRMS helps in protecting sensitive information by enforcing right-based policy
+	- it helps organizations to encrypt and control usage of the data
+	- ADRMS controls:
+		- who can access the data
+		- who can modify the data
+		- forward
+		- print 
+	
+	- core components:
+		- ADDS
+			- used for authentication & publishing the RMS service location.
+		- ADRMS server
+			- this will issue the certificates and handle policy
+		- RMS Client
+			- used to request and enforce rights
+		- SQL Server
+			- stores config, logs, licenses
+		- IIS web server
+			- hosting the RMB we-based licenses
+		- Cluster key (server licensor certificate)
+			- a root of trust for issuing the licenses
+	
+	- ADRMS workflow
+		1. User create a document
+			- word, xl, ppt.
+		2. Applies rights
+			- no print, no forward
+		3. AD RMS encrypts the document
+			- encryption + license will be attached
+		4. other users request a use license
+			- used for opening the document
+		5. AD RMS checks policy
+			- issues the license with rights
+		6. Client enforces the rights
+			- preventing document print.forwarding
+			

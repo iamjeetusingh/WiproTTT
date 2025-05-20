@@ -1,0 +1,231 @@
+DNS:
+-------
+	- Domain Name System
+	- Port Number: 53
+	- it resolves name into IP address & vice-versa.
+	- aka phonebook of the internet
+	- key terms:
+		- domain name 
+			- a readable address (google.com, wipro.com)
+		- IP address
+			- a numeric label (1.1.1.1)
+		- hostname
+			- the name of the device on a network (dc.training.com)
+- types of records in DNS:
+	- A record (Address record)
+		- maps domain into IPv4 address
+	- AAAA record 
+		- maps domain into IPv6 address
+	- CNAME record (Canonical Name)
+		- alias (alternate name)
+	- MX record (Mail Exchange)
+		- mail servers
+	- NS record (Name Server)
+		- specifies which server is an authoritive server
+	- PTR record (Pointer record)
+		- maps IP address to a domain name
+	- TXT record (text record)
+		- used for validation
+	- SOA record (Start of Authority)
+		- contains administrative information 
+		
+Administrative Template:
+---------------------------
+	- Administrative Template is a feature of group policy.
+	- these are the files that contains settings and policies for registry settings of the windows operating system
+	- these file are stored as 
+		- .ADM
+		- .ADMX
+	- these admin templates define registry-based policies for managing users and computer settings
+		- desktop configuration
+		- security settings
+		- control panel
+		- windows update
+
+Why to use administrative templates?
+	- control settings without scripts
+	- enforce security and user restrictions
+	- standardize configuration across the domain
+	- provide more granular control over windows OS.
+
+Types of Administrative Templates:
+	- Built-in templates
+		- already available with windows server
+			- control panel
+			- start menu
+	- Custom templates
+		- you can download or create as ".admx files" 
+			- office
+			- chrome
+		
+Default location of admin templates:
+	- domain controller
+		\\training.com\SYSVOL\training.com\Policies\PolicyDefinitions
+		
+	- local system
+		c:\Windows\PolicyDefinitions
+		
+Folder Redirection:
+---------------------
+	- Folder redirection allows you to redirect the path of a known user folder
+	- from local system to a network location (a file server)
+
+- Benefits of using Folder Redirection:
+	- centralized storage for user data.
+	- seamless access to files from any domain-joined computer
+	- saves local disk space
+	- works with roaming profiles and offline files
+	
+common folders that can be redirected:
+	- desktop
+	- documents
+	- Pictures
+	- download 
+	- favorites
+	- application data
+	
+requirements:
+	1. DC (Folder redirection)
+	2. Node01 (access this)
+	
+Securing domain controllers
+----------------------------
+1. physical and logical security
+	- restrictions on allowing laptop or desktop in datacenter.
+	- use Bitlocker to encrypt the disks
+	
+2. Network security
+	- isolate domain controllers using firewall
+	- allow necessary ports only
+	- block FTP (21) & RDP (3389) protocols
+
+3. access control and delegation
+	- least privilege policy
+	- create seperate admin accounts
+
+4. Group Policy Hardening
+	- apply security baseline GPOs
+	- enforce:
+		- password policy
+		- account lockout policy
+		- user rights
+		
+5. Monitoring and logging
+	- tools
+		- Microsoft Defender for Identity
+		
+6. Patch mgmt
+	- apply updates to windows regularly
+	- use WSUS os SCCM
+
+7. secure authentication practices
+	- enable smart card access
+	- implement privileged access workstation (PAWs) for admin usage.
+	
+Implementing Account Security:
+---------------------------------
+1. Enforce password policy
+2. configure acoount lockout policy
+3. restrict logon rights
+4. use secure authentication methods
+	- enable MFA
+		- Google authenticator
+		- Microsoft authenticator
+		- DuoMObile
+		- Okta
+		- Yubikey
+5. protect admin accounts
+	- rename the built-in administrator
+	- seperate admin & user accounts
+6. disable stale/inactive accounts
+	- set the expiry of account
+7. use fine-grained password policy (FGPP)
+	- do not use username in password
+	
+implement audit authentication:
+--------------------------------
+	- audit authentication helps in tracking 
+		- who logged in, 
+		- from where
+		- & when.
+		- whether the login is successful or not.
+	- this is critical for security monitoring, complaiance and threat detection
+	
+authentication auditing:
+-------------------------
+	- logon attempts
+	- use of logon types
+		- local
+		- remote
+		- network
+	- credential validation events
+	- kerberos and NTLM authentication operations
+	
+why audit authentication is required?
+	- detect brute-force attack
+	- monitoring sensitive systems
+	- checking unauthorized access
+	- supports complaiance (HIPPA, PCI-DSS etc..)
+	
+Event IDs:
+	4624	-	successful login
+	4625	-	failed logon
+	4634	- 	logoff
+	4768	-	user-initiated logoff
+	4771	-	kerberos pre-auth failed
+	
+
+Configuring Managed Service Account(MSA)
+-----------------------------------------
+	- MSA provides 
+		- automatic password mgmt
+		- simplified service principal name (SPN)
+	for running services on windows
+	- they are ideal for improving security and operational efficiency
+	- 2 types:
+		1. sMSA - Standalone Managed Service Account
+		2. gMSA - Group Managed Service Account
+	
+	- benefits of MSAs
+		- automatic password rotation (every 30days)
+		- no manual password mgmt
+	
+	- pre-reqisites:
+		- at least windows server 2012 or later
+		- Powershell 5.0 or above
+		- key distribution service (KDS) --> gMSA
+		
+
+
+Active Directory Certificate Service (ADCS):
+--------------------------------------------
+	- its a role that helps in	
+		- creating a certificate
+		- managing certificates
+		- distributing certificates
+		- revoking certificates
+	- benefits
+		- centralized certificate mgmt
+		- supports SSL/TLS, IPSec, EFS, VPN, 802.1X
+		- enhanced authentication and data security
+		- integrated with AD for automated enrollment
+		
+1. shared-key method
+	- single key is responsible for encrypting and decrypting the data.
+	- faster in nature
+	- unsafe
+	
+2. PKI infrastructure
+	- 2 keys to encrypt and decrypt the data.
+		- Public key  - will be shared with others
+		- Private key - can not be shared with anyone
+
+
+encryption => "hi" + algo = 1h1i2e@$aq (cipher text)
+
+Self-Sign Certificate
+	- makecert.exe (depricated)
+	- OpenSSL (in linux)
+	- IIS web server
+	- New-SelfSignedCertificate	(powershell)
+	

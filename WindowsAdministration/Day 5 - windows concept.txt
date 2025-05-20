@@ -1,0 +1,285 @@
+Active Directory:
+-------------------
+
+Domain
+	- it the logical administrative boundary of an organization
+	- allow you to manage:
+		- users
+		- computers
+		- policies
+		- permissions
+	- allow you to have full control over the environment.
+	- Ex:
+		- wipro.com
+		- micorosoft.com
+		- umar.com
+		- ganesh.ka
+		- training.com
+		- training.in
+	- we install a role called "Active Directory Domain Service (ADDS)" to get the domain in our environment.
+	- with the help of this ADDS role, we can convert a SERVER into a DOMAIN CONTROLLER.
+	- DOMAIN CONTROLLER - is a server that controls the whole domain/environment.
+	- domain is a collection of:
+		- users
+		- computers
+		- groups
+			- collectively these 3 are called "OBJECTS".
+	- it performs 2 A's:
+		1. Authentication (verifies your identity)
+		2. Authorization  (Granting permissions)
+
+
+- Windows server offer ROLES & FEATURES.
+
+ROLES:
+	- additional functionality
+	- list of roles:
+		- ADDS (Active Directory Domain Service)
+		- ADFS (Active Directory Federation Service)
+		- ADRMS (Active Directory Rights Management Service)
+		- DHCP (Dynamic Host Configuration Protocol)
+		- DNS (Domain Name System)
+		- IIS Web server 
+		- Hyper-V
+		- WSUS (Windows Server Update Service)
+		- Remote Desktop Service (RDS)
+
+FEATURES:
+	- independent components that supports the ROLES
+	- are the backbone for the roles
+	- list of features:
+		- DotNet Framework
+		- Bitlocker
+		- Failover clustering
+		
+Active Directory:
+------------------
+	- its a directory service developed by Microsoft.
+	- it stores the information (of objects) like:
+		- users
+		- computers
+		- groups
+	- with AD, you can manage & control:
+		- Network resources
+		- policies
+		- user accounts & what they access.
+	- to get active directory, we need to install ADDS role on domain controller.
+
+Steps to create a domain controller (DC) --> converting a server into DC.
+	- install a windows server 2016 OS
+	- perform post installation configuration
+	- install the ADDS role
+	- configure the domain
+	- restart the server & login again.
+	
+Terms used in AD:
+------------------
+- Domain 
+	- its logical administrative boundary
+	- domain stores the information like:
+		- user, computers & groups
+	- it stores these information (objects) in a database called "NTDS.DIT".
+		"NTDS.DIT = New Technology Directory Service.Directory"
+	- domain is represented as a TRIANGLE
+
+- Tree
+	- heirarchy of domains
+	
+- Forest
+	- collection of AD trees
+	- it shares a common schema (blueprint) & global catalog (indexing) server 
+	
+- Schema
+	- its the blueprint
+	- defines the types of objects created in the directory
+	
+- Global Catalog (GC)
+	- its a searchable index
+	- we search for the objects with the help of GC server.
+	
+- OU
+	- Organizational Unit
+	- its like a department
+	- these OUs are like containers within a domain that holds:
+		- users
+		- computers
+		- groups
+	
+- site
+	- physical, geo-graphical location with domain
+	- a site can contain multiple OUs in it.
+	
+- Group policy
+	- its a policy that is applied to manage the domain & its objects
+	- its a centralized policy to manage the objects
+		- users
+		- computers
+		- permissions
+		- security
+	- to create, modify, delete a policy we need GPMC (Group Policy Management Console)
+	
+Components of Active Directory (AD)
+-----------------------------------
+1. Physical component
+	- Domain Controller (DC)
+		- it contains the copy of database (NTDS.DIT)
+	- Data store
+		- the file on each domain controller that stores the database information.
+	- Global Catalog (GC) server
+		- this server hosts the read-only copy of all the objects in domain for faster search/access
+	- RODC
+		- Read-Only Domain Controller
+		- its a special type of domain controller with Read-Only ability
+		- this RODC if often used in branch offices
+		
+2. Logical component
+	- partition
+	- schema
+	- domain 
+	- trees (domain trees)
+	- Forest
+	- Sites
+	- OUs
+
+Types of domain controller (DC)
+--------------------------------
+	- domain controller (DC)
+	- Additional domain controller (ADC)
+	- Backup domain controller (BDC)
+	- Read-Only Domain controller (RODC)
+	- Primary Domain Controller (PDC)
+	
+Converting a server into DC.
+-------------------------------------------------------------------
+	- install a windows server 2016 OS (done)
+	- perform post installation configuration (done)
+	- install the ADDS role
+		- GUI - server manager dashboard page (done)
+		- CLI - PowerShell
+	- promote you machine from server to domain controller	
+		- configure the domain controller
+		- ways to promote server to DC
+			1. server manager dashboard page
+			2. PowerShell Script
+			3. application --> dcpromo.exe (depricated)
+	- restart the server & 
+	- login as.
+		local admin			: administrator					//OR
+		domain admin/user	: domain_name\<username>
+		
+To test if a server is domain controller or not:
+--------------------------------------------------
+PowerShell cmd --> (Get-WmiObject Win32_ComputerSystem).DomainRole
+Output
+	- 0 - standalone machine
+	- 1 - Member machine
+	- 2 - Standalone Server
+	- 3 - Member Server
+	- 4 - Backup domain controller
+	- 5 - Primary domain controller
+
+Note: whenever you install ADDS roles (for the first time), DNS installation is mandatory.
+
+before domain joining a member to domain (on client-side):
+	- IP address  	: same range only
+	- subnet mask	: same subnet mask as domain controller
+	- gateway		: must be pointed to domain controller IP address
+	- DNS			: must be pointed to domain controller IP address
+	
+before domain joining a member to domain (on DC server-side):
+	- it must be POWERED-On
+	
+	
+	
+
+training\administrator
+pass@word1
+
+
+Windows Server Backup (WSB)
+-------------------------------
+	- WSB is a built-in feature to perform backup and recovery
+	- you can backup:
+		- system state
+		- volumes
+		- files
+		- application date
+		- entire server
+		- bare-matel 
+	- installation os WSB:
+		- server dashboard
+		- PowerShell
+			- install-windowsfeature -name Windows-Server-Backup
+			
+Steps to install WSB:
+	- create a new SCSI disk of minimum 20GB
+	- create a simple volume from it.
+	- install the WSB feature using dashboard
+	
+Failover Clustering:
+--------------------
+	- FC is a high-availability solution provided by windows server that allows multiple nodes to work together.
+	- this provides continous availability of application, service or resources.
+	- we can use FC with:
+		- file server failover clustering
+		- SQL server AlwaysOn availability groups
+		- Hyper-V VM clustering
+		- DHCP
+		- IIS web server
+	- key components of FC:
+		- Nodes		
+			- physical or virtual server within a cluster
+		- shared storage
+			- SAN storage
+			- iSCSI storage
+		- clustered role
+			- the application or service that run within the cluster
+			- ex:
+				- file server
+				- SQL server
+		- Heartbeat
+			- health check signal between nodes
+		- Quorum
+			- mechanism to avaoid the split-brain scenarios
+			
+iSCSI storage configuration:
+-----------------------------
+	DC 
+		- iSCSI storage --> simple volume, spanned volume, xyz...
+		- install the required role
+		- configure it.
+		
+Steps:
+- on dc, add a new 20 GB HDD
+		- make it online
+		- make it initialize disk
+		- make a new simple volume (name: SharedDisk)
+	- on dashboard page, install the "iSCSI Target server" role.
+	- create the virtual disk
+	- create target volume
+	- add both server under "Access Servers"
+	- leave "Enable authentication...."
+	- click on create
+	
+- on node01 (client1)
+	- open services.msc, run Microsoft iSCSI initiator service
+	- go to control panel
+	- open iSCSI initiator
+	- go to target tab, add "dc" --> quick connect
+	- go to volumes and devices --> auto configure -> OK
+	- diskmgmt.msc 
+		- online
+		- initialize
+		- create a new simple volume
+	
+- on node02 (client1)
+	- open services.msc, run Microsoft iSCSI initiator service
+	- go to control panel
+	- open iSCSI initiator
+	- go to target tab, add "dc" --> quick connect
+	- go to volumes and devices --> auto configure -> OK
+	- diskmgmt.msc 
+		- online
+		- initialize
+		- create a new simple volume
+		
