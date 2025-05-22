@@ -1,0 +1,22 @@
+1. Install a domain controller (with the name "Wipro.in") with 2 node servers added as domain joined machines.
+	DC 	  - 192.168.10.10/24 - win svr data center eval (desktop exp)
+	Node1 - 192.168.10.11/24 - win svr data center eval (desktop exp)
+	Node2 - 192.168.10.12/24 - win svr data center eval (desktop exp)
+	
+2. Create a storage space of 30GB and access it on DC machine.
+
+3. Create NFS shared folder (named: NFSShareFolder)on DC machine and access it on both nodes.
+
+4. Install and configure NLB using IIS web server sites on both nodes.
+
+5. Use powershell command to list all the installed roles and features.
+
+6. Create an OU in AD with the name "WiproTTT" and add 1 users to this OU with the requirement to change the user's password at next login.
+
+7. Create, configure and apply GPO to set wallpaper on all domain computers.
+
+8. Create a GPO to disable control panel on member 01 & member 02 present within the built-in computers OU.
+
+9. Install and Configure a server core operating system and add this machine to domain controller and verify.
+
+10. Create a user with your name and add it to the "Enterprise Admins" group and verify.
