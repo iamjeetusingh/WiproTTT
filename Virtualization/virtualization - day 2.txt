@@ -1,0 +1,136 @@
+Basics of VMware vCenter Server/ vSphere:
+-------------------------------------------
+	- VMware vCenter is a production level solution
+	- VMware vCenter is a centralised management platform for vSphere environment.
+	- it allows you to run multiple ESXi hosts and multiple virtual machines through a single interface.
+	- it provides centralised control, automation and monitoring.
+	- vCenter server also provides the SSO functionality
+	- vCenter server requires a domain control environment & shared storage (iSCSI).
+
+vSphere overview:
+	- VMware's virtualization platform to run and manage multiple vms 
+	- it consists of 2 components:
+		1. ESXI server
+			- its the hypervisor that runs on a physical machine
+			- full form: Elastic Sky X Integrated
+			- its the type 1 hypervisor
+			- it provides CPU, memory and network to the VMs
+			- to provide the storage to the VM, you can use shared storage (iSCSI)
+			- to configure ESXi host, you need to connect using DCUI (Direct Connect User Interface) for local connectivity
+			- to central management, we can use vSphere client or vCenter server.
+		2. vCenter Server
+			- centralised management platform for ESXI and hosts
+			- vCenter can manage:
+				- ESXi host
+				- VMs
+				- Networks
+				- Datastores (storage)
+				- clusters
+			-  vCenter server provides:
+				- HA (High Availability)
+				- DRS (Distributed Resource Schedular)
+				- vMotion
+				- Storage vMotion 
+				- Templates
+				- Cloning
+				- Permission & policies
+				
+Inventory objects in vCenter:
+-----------------------------
+	- Datacenter
+		- is a logical container for all inventory items like cluster, hosts, VMs.
+	- Cluster
+		- its a group of ESXi hosts, pooled together for resource sharing and HA.
+	- hosts
+		- these are physical servers running the ESXi server
+	- Resource Pool
+		- logical abstraction to allocate memory, cpu and other resources
+	- Datastores
+		- storage unit for 
+			- VM HDDs
+			- ISO images
+			- Templates (blueprint)
+	- Network
+		- virtual network
+			- virtual switches
+			- Port groups
+			
+VMWare vCenter types:
+---------------------
+	1. vCenter server
+		- its now depricated
+		- it was windows-server based vCenter
+	
+	2. VCSA (vCenter Server Appliance)
+		- this is what we are using now.
+		- its a linux-based vCenter server
+		- VCSA uses its own operating system called "Photon"
+			
+Networking components:
+-----------------------
+	1. Virtual Switches
+		- just like a physical switch, created on ESXi host during installation of ESXi server.
+		- it allows VMs to communicates with eah other and external networks.
+		- there are 2 types:
+			- vStandard Switch (vSS)
+				- local to one host
+			- vDistributed Switch (vDS)
+				- managed centrally via vCenter server across multiple ESXi hosts
+		
+	2. Port Groups
+		- defines network configuration for VMs (VLAN)
+			
+	3. VMKernel (vmk) Port Groups
+		- special port group used for host-level traffic
+			- vMotion (migration)
+			- management
+			- Fault tolerence
+			- storage 
+			- vSAN - SAN storage solution within VMWare environment
+			
+NIC Teaming 
+	- combine multiple NIC cards together to work as a single unit.
+	- used for load balancing and for failover clustering
+	
+vMotion:
+	- vMotion migrates a running VM from one host to another, without downtime.
+	- it requires 
+		- shared storage & 
+		- a VMKernel port group with vMotion enabled.
+		
+Storage vMotion:
+	- moves a running VM's virtual disk(s) from one datastore to another datastore with zero downtime.
+	- useful in:
+		- storage upgrades
+		- Maintenance
+		- load balancing
+		
+High Availability (HA)
+	- Ensures the VM uptime by automatically restarting VMs on another host if one fails.
+	- it requires:
+		- cluster
+		- shared storage
+		- vCenter server (VCSA)
+
+DRS
+	- Distributed Resource Schedular
+	- it automatically balances VM workloads across hosts in a cluster based on usage.
+	- it can be set to:
+		1. Manually
+		2. Partially Automated
+		3. Fully Automated
+
+Resource Pools:
+	- logical abstraction to allocate memory, cpu and other resources
+	- it helps in mgmt and enforcing resource limit, reservations and shares.
+	
+Templates:
+	- blueprint
+	- this golden image can be used for faster deployment of VMs 
+	- all the deployed VM with same golden image, will be identitical
+	
+Cloning:
+	- creating an exact copy of a virtual machine
+	- useful in test/dev environment
+	
+Ques - difference between template and clone

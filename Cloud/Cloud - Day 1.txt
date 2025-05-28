@@ -1,0 +1,197 @@
+
+Cloud deployment models
+-----------------------
+	1. Public cloud
+		- it can be accessed by ANYONE.
+		- Ex:
+			- Amazon Web Service (AWS)
+			- Microsoft Azure
+			- Google Cloud Platform (GC)
+			- Oracle cloud
+			- Redhat cloud
+	2. Private cloud
+		- it can be accessed by the employee of specific organization
+		- ex:
+			- Microsoft System Center Suite
+			- Openstack (linux cloud --> Centos or Ubuntu)
+	3. Hybrid cloud
+		- Private + Public cloud
+		
+		
+							AWS					Azure
+virtual machine				EC2 instance		Azure virtual machine
+Storage						S3 bucket			Azure storage account
+networking					VPC					Azure vNet
+Public IP address			Elastic IP			Public IP address
+
+
+AWS:
+-------
+	1st account in AWS		--> root account
+	other users account		--> IAM (Identity and Access Management) account
+	
+RBAC 
+	- Role-Based Access Control
+	- role based access is allocated to users.
+	
+	
+username + password -> login
+
+username + password + MFA -> no login
+
+MFA
+- Multi Factor Authentication
+- code on authenticator apps (on mobile)
+	- google authenticator
+	- MS authenticator
+	- Okta authenticator
+	
+- hardware devices
+	- yubikey
+	
+- biometrics
+	- eye
+	- fingerprint
+	
+Rule of creating a resource 
+	- ALWAYS CREATE THE RESOURCE NEAR TO THE CLIENT.
+		- due to latency
+		
+VPC
+	- Virtual Private Cloud
+	- its the networking component in AWS.
+
+VPC Peering
+	- it allows to connect the resources between
+		- 2 different regions
+		- 2 different AWS accounts (Account ID)
+		
+AWS Core services:
+---------------------
+Amazon EC2
+	- Elastic Compute Cloud
+	- linux/windows virtual machine
+	
+Amazon S3 bucket
+	- Simple Storage Service
+	- its a storage service just like google drive
+	
+Amazon VPC
+	- Virtual Private Cloud
+	- networking infrastructure
+	
+Amazon IAM
+	- Identity & Access Management
+	- users, groups and permission
+	
+Amazon CloudWatch
+	- Monitoring service
+	
+Amazon Route53
+	- DNS service in AWS
+	- create domains, zones.
+	
+Amazon DynamoDB
+	- NoSQL database
+	
+Amazon AutoScaling
+	- scalability for EC2 instances
+	
+Amazon RDS
+	- Relational Database service
+	- RDBMS
+	
+Learning track for AWS
+----------------
+Foundational		-> aws cloud practitioner 
+Associate			-> aws cloud solution architect - associate
+Professional 		-> aws cloud solution architect - professional
+					-> AWS Devops
+Speciality			-> Adv networking, big data, security, ML
+
+
+
+Learning track for Azure
+-------------------------
+Foundational		-> AZ-900
+Administration		-> AZ-900 & AZ-104
+Developers			-> AZ-900 & AZ-204
+Architect			-> AZ-900 + AZ-104 + AZ-305
+Devops				-> AZ-900 + AZ-104 + AZ-400
+
+Creating new user's account in AWS:
+----------------------------
+	- we can provide 2 types of access to user.
+		1. Console access		
+			- web browser
+			- username and password
+			- given to administrators
+			
+		2. Progammatic access	
+			- CLI access (install AWS CLI)
+			- access key (visibile) & secret key (one time)
+				access key & secret key -->> very important
+			- given to developers
+			
+	Note - for IAM user, we can either provide console/Progammatic access or both at the same time.
+	
+URL:
+	Root user
+		https://signin.aws.amazon.com/console
+	
+	IAM user
+		https://iamjeetusingh.signin.aws.amazon.com/console
+		
+ARN:
+- AWS Resource Number
+- its a unique number to identity the user, group or any service.
+
+Tags:
+	- are used for uniquely identifying a user, a service, etc...
+	- it is useful in billing
+	
+WSL
+	- Windows Sub-Linux system
+	- it like running linux OS on top of windows
+	
+	
+	to run linux command on windows			--> WSL
+	to run windows application on linux		--> WINE
+		WINE = WINdows Emulator
+			Too much WINE is harmful for linux.
+			
+
+Permissions	--> 
+	- ReadOnlyAccess
+	- can read/view only
+	
+later:
+	- EC2 full access
+	- Networking full access
+	- S3 full acccess
+	
+	
+Policy
+	- is something that allows you to access something.
+	- what you can do within AWS console
+	- 2 types:
+		1. AWS Managed policy
+			- the policies that are create, modified & deleted by AWS.
+		2. Custom policy
+			- the policies that are create, modified & deleted by root user.
+			
+			
+AWS EC2 instance:
+------------------
+	- its a virtual machine on AWS.
+	- we can create 
+		- windows
+		- linux 
+
+Amazon Machine Image (AMI)
+	- this is basically an operating system for the EC2 instance.
+	- AMI can be:
+		- default image (only the OS will be present)
+		- custom images (OS + applications that you/vendor will install)
+	
+Azure Bastian service

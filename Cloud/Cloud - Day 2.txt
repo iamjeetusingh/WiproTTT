@@ -1,0 +1,155 @@
+Classes
+	A 	-> 	10.0.0.0 - 10.255.255.255		~> 16 Million IP address
+	B	-> 	172.16.0.0 - 172.16.255.255		~> 65535 IP address
+	C	->	192.168.0.0 - 192.168.255.255	~> 256 IP address
+
+subnet 			-> is breaking a bigger network into smaller peice.
+supernetting	-> combining smaller networks into a bigger network.
+
+VPC:
+-----
+	- Virtual Private Cloud
+	- it provides the networking components:
+		- IP address range	- overall IP range
+		- subnet			- smaller network within IP range
+		- route table		- decides where to send the packet
+		- Internet gateway	- IGW allows the packet to be sent on internet
+	- whenever a new AWS account is created, by default you will get ONE VPC from AWS. this VPC is generally known as Default-VPC.
+	- this default VPC MUST be present everytime.
+	
+Security group (SG)
+	- its a firewall for your EC2 instance
+	- it allows or deny any incoming (inbound) or outgoing (outbound) traffic
+	- by default, SG DOESNOT allow any port number. you need to manualy add port numbers.
+	- in Azure, same is known as NSG (Network Security Group)
+	- 
+steps to create a VPC:
+	1. create a VPC
+	2. create subnet(s), associated with the VPC
+	3. create internet gateway (IGW), 
+		- if you need to send and recieve traffic from internet.
+		- attach IGW with VPC.
+	4. then you need to create route table and associate the IGW with RT
+	
+S3 bucket:
+--------------
+	- simple storage service
+	- like google drive
+	- the objects (data stored in S3) can be accessed over the URL.
+	- to access object over internet, you need to enable the public access.
+	- to enable public access, json code is required.
+	
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicReadGetObject",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::mycloudfronts3bucket01010/*"
+        }
+    ]
+}
+
+Object URL: - https://demowipro01.s3.us-east-2.amazonaws.com/jaguar.jpg
+-------------
+https://			-->	Protocol to access the object
+demowipro01.		-->	bucket name
+s3.					--> resource
+us-east-2.			-->	Region
+amazonaws.com		--> domain name
+/jaguar.jpg			--> object name
+
+Azure:
+=========
+	- old version of Azure is called "ASM Portal" (Azure Service Manager)
+		- ASM portal
+		- old portal
+		- classic portal
+	- its called "ARM portal)
+			- Web browser (portal)
+			- PowerShell (here you need to install module "AZ")
+			- RestAPI
+
+Azure requires the following:
+	- subscription - its an identity 
+	- resource group - its collection of resources" (Azure Resource Manager)
+	- ARM portal
+		- works with the help of Resource Groups (RGs)
+			- RG: is a logical container that contains the resources in it.
+			- Resources like:
+				- VMs
+				- Storage
+				- Network
+				- Firewall
+				- NSG
+				- AI/ML
+		- Sends information from your device to Microsoft datacenter using file format called "JSON" (JavaScript Object Notation)
+		- ARM portal supports automation using "ARM Templates".
+		- ways to connect to Azure portal (ARM portal)
+			- Web browser (portal)
+			- PowerShell (here you need to install module "AZ")
+			- RestAPI
+
+Azure requires the following:
+	- subscription - its an identity 
+	- resource group - its collection of resources
+	
+types of subscriptions
+	- Free trial (30 days, Rs13300)
+	- Pay as you go (you pay, for what you use)
+	- MSDN subscription (MCTs)
+	- Visual Studio Benefits (developer).
+	- Enterprise subscription (organizations)
+
+Service:
+	virtual machine		-> Azure virtual machine
+	network				-> Azure virtual network (vNet)
+	storage				-> Azure storage account
+	user/groups			-> Microsoft EntraID (Azure Active Directory)
+	
+vnet - 192.168.0.0/16
+sub  - 192.168.1.0/24
+	VM1 -> IP - 192.168.1.4 / 24
+	VM2 -> IP - 192.168.1.5 / 24
+	
+1.1, 1.2, 1.3		->  1.1 (gateway), 2&3 -> redundant IP for GW
+
+Azure Storage Account:
+---------------------
+	- it is used for storing data
+	- type of azure storage account:
+		- BLOB storage
+			- Binary Large OBject
+			- used for storing large amount of data.
+			- it stores data like:
+				- text
+				- PDF
+				- MP3/MP4
+				- VHDs
+				- Excels
+				- images (PNG, JPG, JPEG)
+		- Azure File Share
+			- its the Network File Sharing (NFS) solution
+			- multiple people can access this storage at a time.
+		- Azure Table storage
+			- its the SQL solution 
+			- to store data in rows & columns
+		- Azure Queue storage
+			- data is stored in form of queue
+			- First In First Out (FIFO)
+	- keys in azure storage:
+		1. Access keys
+			- are the master keys to access WHOLE storage account
+		2. Shared Access Signature (SAS) keys
+			- limited access key
+			- we can control:
+				- list
+				- read/write
+				- set the expiry
+				- set which service you can use:
+					- BLOB
+					- Azure file
+					- Table
+					- Queue

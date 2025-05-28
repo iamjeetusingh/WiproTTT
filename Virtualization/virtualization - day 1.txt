@@ -1,0 +1,202 @@
+Virtualization:
+----------------
+ - Virtualization is the process of creating virtual version of 
+	- operating system
+	- storage
+	- network
+
+- Virtualization means, running multiple virtual machines on a single heavy-duty hardware.
+
+Nested Virtualization - VM within another VM.
+
+
+- key concepts 
+	- hypervisor 		- is a tool to achieve virtualization
+	- virtual machine 	- is a software based emulation of a physical computer
+	- host machine 		- the physical server on which hypervisor and VMs run.
+	- guest OS 			- the operating system installed on a vm
+	
+types of virtualization:
+	- Server virtualization
+		- running multiple VMs on one physical server
+		
+	- Desktop virtualization
+		- virtual desktops running from a central server 
+		- VDI (Virtual Desktop Infrastructure)
+			- Azure: Azure Virtual Desktop (AVD)
+			- Amazon: Workspaces
+			
+	- Application virtualization
+		- applications run on a central server & this application is accessed remotely.
+			- Facebook (games)
+			- Tic Tac Toe game 
+	
+	- Storage virtualization
+		- having physical storage accessed on multiple devices as a single view
+			- iSCSI storage
+	
+	- Network virtualization
+		- combining physical network resources into a single software-based entity.
+		
+Biggest players in market:
+===========================
+	- VMWare (Broadcom)
+		- vSphere (ESXi, vCenter)
+		- VMWare workstation (for windows)
+		- VMWare fusion (for MacOS)
+		- VMWare horizon (VDI)
+	- Microsoft
+		- Hyper-V
+		- SCVMM (System Center Virtual Machine Manager)
+		- Azure Stack got hybrid cloud
+	- RedHat (IBM)
+		- RedHat Virtualization (RHV)
+	- Citrix
+		- Citrix hypervisor (Xen server)
+		- Citrix virtual apps & desktops (for VDI)
+	- Oracle
+		- Oracle VirtualBox (for desktops)
+		- Oracle VM server (for servers)
+	- Proxmox
+		- Proxmox VE (Virtual Environment)
+	- Nutanix
+		- AHV (Acropolis hypervisor)
+		
+Types of hypervisors:
+---------------------
+	1. Type 1
+		- bare-matel hypervisor
+		- these HVs run directly on top of host machine.
+		- these HVs do not require any additional OS.
+		- ex:
+			- VMWare ESXi
+			- Microsoft Hyper-V
+			- Citrix Xen server
+			- RedHat KVM (kernel-based virtual machine)
+			- Nutanix AHV
+		- Type1 provides:
+			- Better performance & efficiency
+			- more secure
+			- more stable
+			- ideal for enterprise datacenters
+	
+	2. Type 2
+		- hosted/guest-based hypervisor 
+		- they need an OS to work
+		- ex:
+			- VMWare workstation
+			- Microsoft Hyper-V
+			- Oracle VB
+			- Linux KVM
+		- Type2 provides:
+			- easier installation
+			- easier to use
+			- useful in testing, development, personal
+			- low performance 
+			- not suitable for production
+
+Microsoft Hyper-V:
+------------------
+	- its the built-in role in windows server operating system and windows 10 & 11.
+	- in windows server operating system --> from Server 2012 till server 2022.
+	- in windows 10 & 11 --> Pro edition & Enterprise edition.
+	- Microsoft Hyper-V server (depricated)
+		- free tool
+		- no GUI
+		- no longer present after 2019
+
+components of Hyper-V:
+	- hypervisor	- the main virtualization layer that runs VM.
+	- VMMS (Virtual Machine Management Service) - Manages the VMs lifecycle (start, stop)
+	- VHD/VHDX - formats of virtual HDDs
+					VHD  - 2TB HDD
+					VHDX - 64TB HDD
+	- Virtual Switch - Networking component, allows connectivity.
+						VM - VM
+						VM - host
+						VM - external host
+	- Checkpoint - snapshot (in VMWare)
+	- integration services - enhancements for the VM performance
+	
+architecture of Hyper-V:
+-------------------------
+	- VMI provider
+		- Virtual Machine Interface Provider
+		- is WMI-based (Window Management Instrumentation) interface that enables the management and automation for hyper-v via powershell scripts.
+	- VM worker processes
+		- its the "vmwp.exe" responsible for managing the state, I/O and execution of VM.
+	- Virtual Service Provider (VSP)
+		- this handles the communication and resource sharing with VMs through VMBus.
+	- VMBus
+		- high-speed communication channel
+	- virtualization service consumer (VSC)
+		- its a guest VM component that communicates with the host's storage, memory and network.
+
+Key features:
+	- virtual machine:
+		- supports linux and windows OS
+		- Dynamic memory allocation
+		- NUMA architecture 
+			- NUMA 
+				- Non-Uniform Memory Access
+	- Virtual Networking
+		- Virtual Switch Manager lets you create
+			1. External Switch	- connects VM to external LAN
+			2. Internal Switch	- VM to VM and VM to host
+			3. Private Switch	- only VM to VM communication
+	- Virtual HDDs
+		- VHD
+		- VHDX
+	- Live Migration
+		- no downtime required during the VM migration from one host to another
+		- requires shared storage or SMB 3.0 storage
+	- Storage Migration
+		- move VM storage between physical location, while VM is running.
+	- dynamic memory
+		- allocates RAM to VMs as needed
+	- shielded VMs
+		- for windows server only
+		- it encrypts the VM 
+
+System requirements:
+	- 64bit processor
+	- Intel VT (virtualization technology) or AMD-V must be enabled
+	- Minimum: 4GB RAM (8GB + recommended)
+	- Windows 10/11 Pro or Enterprise edition --> CLient
+	- Window server 2012 - 2022 --> Server
+	
+Note - Microsoft Hyper-V and VMWare workstation never gets installed on same computer
+
+Containers:
+-------------
+	- Containers are light weight, isolated environment to run applications.
+	- Containers have self-healing abilities
+	- containers can shared the OS with the HOST VM (advantage).
+	- since the container relies on host operating system, you can run only 
+		- windows container on a windows OS
+		- linux container on a linux OS
+		
+Ques - my base laptop is win11 still on the same machine I need to work with linux container, is it possible. if yes, how?
+
+Key concepts:
+-------------
+	- container host
+		- a physical or VM that runs and manages the containers
+	- container images
+		- its a read-only copy, used to create containers.
+	- container OS Images
+		- the base image (windows server, client, linux, nginx)
+	- docker engine
+		- the runtime engine used to build, run & manage the containers
+		
+lifecycle of a container:
+--------------------------
+	1. pull the image 
+		- download the image
+	2. create container 
+	3. run application, inside the container
+	4. commit image
+		- save the image
+	5. stop/delete container
+		- clean up.
+		
