@@ -1,0 +1,89 @@
+1. A developer launches an EC2 instance but cannot connect to it using SSH. Which is the most likely reason?
+A. The instance type is not compatible
+✅ B. Security group does not allow inbound SSH (port 22)
+C. S3 bucket is not attached
+D. IAM role is missing
+
+2. You have an EC2 instance running a critical workload and want to ensure high availability. Which option should you consider?
+✅ A. Launch instances in multiple Availability Zones
+B. Increase EBS volume size
+C. Attach a static public IP
+D. Use S3 as a backup
+
+3. A user accidentally deleted files from an S3 bucket. How can you ensure this doesn’t happen in the future?
+A. Use EC2 Auto Recovery
+✅ B. Enable S3 Versioning
+C. Configure CloudTrail
+D. Set bucket policy to "read-only"
+
+4. You want to allow EC2 instances in one VPC to communicate with EC2 instances in another VPC. What should you set up?
+✅ A. VPC Peering
+B. NAT Gateway
+C. Elastic Load Balancer
+D. EBS Snapshot
+
+5. A developer created an Azure VM but forgot to open port 80. What’s the result?
+A. The VM won’t boot
+B. The public IP will be blocked
+✅ C. The website hosted on the VM will be inaccessible
+D. The VM will auto-delete
+
+6. You want to connect two Azure VNets located in different regions. What should you use?
+A. ExpressRoute
+B. Application Gateway
+✅ C. VNet Peering (Global)
+D. Load Balancer
+
+7. You want to store large files that can be accessed via a URL in Azure. What should you use?
+A. Azure SQL
+B. Azure Queue Storage
+✅ C. Azure Blob Storage
+D. Azure File Share
+
+8. An organization wants to back up Azure VMs automatically every night. What feature should they use?
+A. Azure Files
+✅ B. Azure Backup
+C. Azure Blob Lifecycle
+D. Azure Monitor
+
+9. Your company wants to stop buying physical servers and instead use computing power over the internet. What is this idea called?
+A. Data Center
+B. Local Hosting
+✅ C. Cloud Computing
+D. Manual Computing
+
+10. In cloud computing, you only pay for what you use. What is this benefit called?
+A. Annual Billing
+✅ B. Pay-as-you-go
+C. Fixed Payment
+D. Buy-once-use-forever
+
+11. You want to store images and documents in the cloud and access them anytime. Which service will you use?
+A. AWS EC2
+✅ B. AWS S3
+C. AWS VPC
+D. AWS IAM
+
+12. You want to create your own private space in AWS to launch EC2 instances. What do you need?
+A. S3 Bucket
+✅ B. VPC (Virtual Private Cloud)
+C. Lambda Function
+D. EC2 Snapshot
+
+13. You want to create a virtual machine (server) in Microsoft Azure. Which service should you use?
+A. Azure Blob
+✅ B. Azure Virtual Machine (VM)
+C. Azure Table
+D. Azure Functions
+
+14. You created an Azure VM but can’t access it using Remote Desktop (RDP). What should you check?
+A. VM Size
+✅ B. RDP Port (3389) is allowed
+C. DNS Name
+D. IP Version
+
+15. You need to move files from AWS to Azure. What is one way to do it?
+A. Re-upload everything
+✅ B. Use AzCopy or Data Factory
+C. Use FTP
+D. Email the files
